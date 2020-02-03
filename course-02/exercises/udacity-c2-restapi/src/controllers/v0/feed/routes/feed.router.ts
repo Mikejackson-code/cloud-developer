@@ -16,8 +16,10 @@ router.get('/', async (req: Request, res: Response) => {
     res.send(items);
 });
 
+
 //@TODO
 //Add an endpoint to GET a specific resource by Primary Key
+// Get a specific resource
 router.get('/:id', async (req: Request, res: Response) => {
     let { id } = req.params;
     const item = await FeedItem.findByPk(id);
@@ -29,15 +31,23 @@ router.patch('/:id',
     requireAuth, 
     async (req: Request, res: Response) => {
         //@TODO try it yourself
-        res.send(500).send("not implemented")
+
+        const { id } =req.params;
+        const caption = req.body.caption;
+        const fileName = req.body.url;
+        const foundItem = await FeedItem.findByPk(id);
+
+        const updateItem = await foundItem.update({  ...foundItem, caption, fileName });
+        res.status(200).send(updateItem);
 });
+
 // Get a signed url to put a new item in the bucket
 router.get('/signed-url/:fileName', 
     requireAuth, 
     async (req: Request, res: Response) => {
     let { fileName } = req.params;
     const url = AWS.getPutSignedUrl(fileName);
-    res.status(201).send({url: url});
+    res.status(201).send({ url: url });
 });
 
 // Post meta data and the filename after a file is uploaded 
