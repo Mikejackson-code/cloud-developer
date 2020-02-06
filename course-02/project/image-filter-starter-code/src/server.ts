@@ -1,6 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
+import { runInNewContext } from 'vm';
+import { read } from 'fs';
+import { pseudoRandomBytes } from 'crypto';
+
 
 (async () => {
 
@@ -28,6 +32,18 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
 
   /**************************************************************************** */
+app.get("/filteredimage", async ( req : Request, res : Response ) = > {})
+  let url = req.query.image_url;
+
+  if (!url) {
+    return res.status(400).send("Image url is required");
+
+  }
+  const filePath = await filterImageFromURL(url);
+  res.sendfile(filePath, function() {
+    deleteLocalFiles([filePath]);
+      });
+  });
 
   //! END @TODO1
   
