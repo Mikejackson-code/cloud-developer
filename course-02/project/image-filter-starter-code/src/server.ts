@@ -1,9 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
-import { runInNewContext } from 'vm';
-import { read } from 'fs';
-import { pseudoRandomBytes } from 'crypto';
+// import { runInNewContext } from 'vm';
+// import { read } from 'fs';
+// import { pseudoRandomBytes } from 'crypto';
 
 
 (async () => {
@@ -32,7 +32,7 @@ import { pseudoRandomBytes } from 'crypto';
   //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
 
   /**************************************************************************** */
-app.get("/filteredimage", async ( req : Request, res : Response ) = > {})
+/*app.get("/filteredimage", async ( req : Request, res : Response ) = > {})
   let url = req.query.image_url;
 
   if (!url) {
@@ -44,7 +44,7 @@ app.get("/filteredimage", async ( req : Request, res : Response ) = > {})
     deleteLocalFiles([filePath]);
       });
   });
-
+*/
   //! END @TODO1
   
   // Root Endpoint
