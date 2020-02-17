@@ -35,17 +35,19 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
     return url.test(pURL);
   }
   
-    app.get( "/filteredimage", async ( req, res ) => {
+    app.get( "/filteredimage", async (req, res) => {
+  
   
       // 1. validate the image_url query
   
       var image_url = req.query.image_url;
       var is_image_url_valid = validateURL(image_url);
       
-      if(is_image_url_valid){
-        // 2. call filterImageFromURL(image_url) to filter the image
+      if(!image_url) {
+        return res.status(400).send('Invalid url or no url');
+        } else {
+              // 2. call filterImageFromURL(image_url) to filter the image
         var image_path = await filterImageFromURL(image_url);
-  
         var options = {
           dotfiles: 'deny',
           headers: {
@@ -62,9 +64,8 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
             deleteLocalFiles([image_path]);
           }
         });
-    }
-      else {
-        res.status(404).send('URL for the image was not found')
+      //} else {
+      //  res.status(404).send('URL for the image was not found')
       }
     });
   //! END @TODO1
