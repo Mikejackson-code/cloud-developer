@@ -29,7 +29,6 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
 
   /**************************************************************************** */
-<<<<<<< HEAD
   function validateURL(pURL: string) {
     var regexQuery = "^(https?://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\\.[a-z]{2,6}(/[-\\w@\\+\\.~#\\?&/=%]*)?$";
     var url = new RegExp(regexQuery,"i");
@@ -69,24 +68,6 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
         res.status(404).send('URL for the image was not found')
       }
     });
-||||||| merged common ancestors
-
-=======
-  //  This is a change
-  app.get( "/filteredimage", async ( req, res ) => {
-    let image_url = req.query.image_url;
-    if (image_url) {
-      filterImageFromURL(image_url).then((response) => {
-        res.sendFile(response);
-        res.on('finish', function() {
-          deleteLocalFiles([response]);
-        });
-      });
-    } else {
-      res.status(404).send("Please send the correct image_url");
-    }
-  }); 
->>>>>>> 33b62608c2292ea84b25f17618ed8a45a897e446
   //! END @TODO1
   
   // Root Endpoint
