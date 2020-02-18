@@ -34,13 +34,13 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
     var url = new RegExp(regexQuery,"i");
     return url.test(pURL);
   }
-  
+     
     app.get( "/filteredimage", async (req, res) => {
-  
        // 1. validate the image_url query
   
       var image_url = req.query.image_url;
       var is_image_url_valid = validateURL(image_url);
+     
       
       if(!image_url) {
         return res.status(400).send('Invalid url or no url');
@@ -60,11 +60,10 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
             res.status(440).send('Image could not be accessed')
           } else {
             // 4. deletes any files on the server on finish of the response
+            res.status(200).send('Image found')
             deleteLocalFiles([image_path]);
           }
         });
-      //} else {
-      //  res.status(404).send('URL for the image was not found')
       }
     });
   //! END @TODO1
