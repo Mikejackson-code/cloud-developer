@@ -37,14 +37,10 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   
     app.get( "/filteredimage", async (req, res) => {
   
-  // Equivalent. `.catch(fn)` is essentially identical to `.then(null, fn)`
-    new Promise((_, reject) => reject(new Error('200'))).
-  // Prints "caught 200"
-      then(null, error => { console.log('caught', error.message); });
-      // 1. validate the image_url query
+       // 1. validate the image_url query
   
-      var image_url = req.query.image_url;
-      var is_image_url_valid = validateURL(image_url);
+      let image_url = req.query.image_url;
+      let is_image_url_valid = validateURL(image_url);
       
       if(!image_url) {
         return res.status(400).send('Invalid url or no url');
