@@ -39,8 +39,8 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   
        // 1. validate the image_url query
   
-      let image_url = req.query.image_url;
-      let is_image_url_valid = validateURL(image_url);
+      var image_url = req.query.image_url;
+      var is_image_url_valid = validateURL(image_url);
       
       if(!image_url) {
         return res.status(400).send('Invalid url or no url');
