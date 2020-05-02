@@ -6,7 +6,7 @@ const XAWS = AWSXRay.captureAWS(AWS);
 
 export default class TodoStorageLayer {
   constructor(
-    private readonly todosStorage = process.env.S3_BUCKET,
+    private readonly todosStorage = process.env.S3_ATTACHMENT_BUCKET,
     private readonly s3 = new XAWS.S3({ signatureVersion: 'v4' })
   ) { }
 
