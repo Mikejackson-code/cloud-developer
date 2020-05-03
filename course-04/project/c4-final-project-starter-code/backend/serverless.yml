@@ -1,7 +1,7 @@
-org: jacksonmike
-app: my-todo-app
+git add --allorg: jacksonmike
+app: todo-serverless
 service:
-  name: my-todo-app
+  name: todo-serverless
 
 plugins:
   - serverless-webpack
@@ -19,9 +19,9 @@ provider:
   region: ${opt:region, 'us-east-2'}
 
   environment:
-    TODOS_TABLE: my-todo-table-${self:provider.stage}
+    TODOS_TABLE: todo-serverless-table-${self:provider.stage}
     INDEX_NAME: UserIdIndex
-    S3_BUCKET: my-todo-attachments-mjj-${self:provider.stage}
+    S3_BUCKET: todo-serverless-attachments-mjj-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
 
 custom:
