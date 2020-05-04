@@ -1,5 +1,5 @@
 org: jacksonmike
-git add --allorg: jacksonmikeapp: todo-serverless
+app: todo-serverless
 service:
   name: todo-serverless
 
