@@ -13,6 +13,9 @@ plugins:
 
 provider:
   name: aws
+  logs:
+      restApi: true
+
   runtime: nodejs12.x
 
   stage: ${opt:stage, 'dev'}
@@ -21,8 +24,9 @@ provider:
   environment:
     TODOS_TABLE: todo-serverless-table-${self:provider.stage}
     INDEX_NAME: UserIdIndex
-    S3_BUCKET: todo-serverless-attachments-mjj-${self:provider.stage}
+    S3_BUCKET: todo-serverless-mjj-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
+
 
 custom:
   dynamodb:
@@ -121,6 +125,10 @@ functions:
           - s3:PutObject
           - s3:GetObject
         Resource: arn:aws:s3:::${self:provider.environment.S3_BUCKET}/*
+      - Effect: "Allow"
+        Action:
+          - dynamodb:UpdateItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}    
 
 resources:
   Resources:
@@ -189,11 +197,9 @@ resources:
           Id: Policy
           Version: '2012-10-17'
           Statement:
-            - Sid: PublicReadWriteBucketPolicy
+            - Sid: PublicReadForGetObjectsPolicy
               Effect: Allow
               Principal: '*' 
-              Action:
-                - s3:GetObject
-                - s3:PutObject
+              Action: "s3:GetObject"
               Resource: arn:aws:s3:::${self:provider.environment.S3_BUCKET}/*
         Bucket: !Ref AttachmentBucket
