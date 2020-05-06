@@ -1,14 +1,14 @@
-import 'source-map-support/register'
+import 'source-map-support/register';
 
-import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda'
-import { UpdateTodoRequest } from '../../requests/UpdateTodoRequest'
-import { updateTodo } from '../../helpers/Todos'
+import { APIGatewayProxyEvent, APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda';
+import { UpdateTodoRequest } from '../../requests/UpdateTodoRequest';
+import { updateTodo } from '../../helpers/Todos';
 
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const updatedTodo: UpdateTodoRequest = JSON.parse(event.body)
+  const updatedTodo: UpdateTodoRequest = JSON.parse(event.body);
 
-  const updated = await updateTodo(event, updatedTodo)
+  const updated = await updateTodo(event, updatedTodo);
   if (!updated) {
     return {
       statusCode: 404,

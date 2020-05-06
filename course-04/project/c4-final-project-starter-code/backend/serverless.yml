@@ -24,7 +24,7 @@ provider:
   environment:
     TODOS_TABLE: todo-serverless-table-${self:provider.stage}
     INDEX_NAME: UserIdIndex
-    S3_BUCKET: todo-serverless-mjj-${self:provider.stage}
+    S3_BUCKET: todo-serverless-jacksonmike-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
 
 
@@ -125,10 +125,10 @@ functions:
           - s3:PutObject
           - s3:GetObject
         Resource: arn:aws:s3:::${self:provider.environment.S3_BUCKET}/*
-      - Effect: "Allow"
-        Action:
-          - dynamodb:UpdateItem
-        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}    
+#      - Effect: Allow
+#       Action:
+#          - dynamodb:UpdateItem
+#        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}    
 
 resources:
   Resources:
