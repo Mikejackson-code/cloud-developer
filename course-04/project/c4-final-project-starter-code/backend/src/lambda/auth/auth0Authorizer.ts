@@ -7,7 +7,7 @@ import Axios from 'axios';
 import { Jwt } from '../../auth/Jwt';
 import { JwtPayload } from '../../auth/JwtPayload';
 
-const logger = createLogger('auth')
+const logger = createLogger('auth');
 const jwksUrl = 'https://dev-0hz4le1t.auth0.com/.well-known/jwks.json';
 
 export const handler = async (
@@ -53,9 +53,9 @@ export const handler = async (
 async function verifyToken(authHeader: string): Promise<JwtPayload> {
   const token = getToken(authHeader);
   const jwt: Jwt = decode(token, { complete: true }) as Jwt;
-  const jwtKid =jwt.header.kid;
+  const jwtKid = jwt.header.kid;
   let cert: string | Buffer;
-  
+
   try {
     const jwks = await Axios.get(jwksUrl);
     const signingKey = jwks.data.keys.filter(k => k.kid === jwtKid)[0];

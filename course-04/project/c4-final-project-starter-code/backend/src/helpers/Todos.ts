@@ -17,7 +17,6 @@ export async function createTodo(event: APIGatewayProxyEvent,
   const todoId = uuid.v4();
   const userId = getUserId(event);
   const createdAt = new Date(Date.now()).toISOString();
-    
 
   const todoItem = {
     userId,
@@ -25,7 +24,7 @@ export async function createTodo(event: APIGatewayProxyEvent,
     createdAt,
     done: false,
     attachmentUrl: `https://${todoStorageLayer.getBucketName()}.s3.amazonaws.com/${todoId}`,
-      ...createTodoRequest
+    ...createTodoRequest
   };
 
   await todoAccessLayer.addTodo(todoItem);

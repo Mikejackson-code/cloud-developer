@@ -1,11 +1,9 @@
-import 'source-map-support/register'
-
-import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
-import { getTodos } from '../../helpers/Todos'
-
+import 'source-map-support/register';
+import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda';
+import { getTodos } from '../../helpers/Todos';
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  // TODO: Get all TODO items for a current user
+
   return {
     statusCode: 200,
     headers: {
@@ -16,4 +14,4 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       items: await getTodos(event)
     })
   };
-}  
+}

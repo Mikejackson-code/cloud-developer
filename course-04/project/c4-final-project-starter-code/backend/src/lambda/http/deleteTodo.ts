@@ -1,8 +1,9 @@
-import 'source-map-support/register'
-import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda'
-import { deleteTodo } from '../../helpers/Todos'
+import 'source-map-support/register';
+import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda';
+import { deleteTodo } from '../../helpers/Todos';
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  // delete todo and if it fails, return error
   if (!(await deleteTodo(event))) {
     return {
       statusCode: 404,
@@ -16,8 +17,8 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
     statusCode: 202,
     headers: {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true 
-      },  
-      body: JSON.stringify({})
-    };
-  }
+      'Access-Control-Allow-Credentials': true
+    },
+    body: JSON.stringify({})
+  };
+}

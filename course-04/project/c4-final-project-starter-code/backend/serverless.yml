@@ -1,7 +1,7 @@
-org: jacksonmike
+
 app: todo-serverless
 service:
-  name: todo-serverless
+  name: myserverless-todo-app
 
 plugins:
   - serverless-webpack
@@ -13,20 +13,16 @@ plugins:
 
 provider:
   name: aws
-  logs:
-      restApi: true
-
   runtime: nodejs12.x
 
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-2'}
 
   environment:
-    TODOS_TABLE: todo-serverless-table-${self:provider.stage}
+    TODOS_TABLE: myserverless-todo-table-${self:provider.stage}
     INDEX_NAME: UserIdIndex
-    S3_BUCKET: todo-serverless-jacksonmike-${self:provider.stage}
+    S3_BUCKET: serverless-todo-testtwo-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
-
 
 custom:
   dynamodb:
@@ -126,7 +122,6 @@ functions:
           - s3:GetObject
         Resource: arn:aws:s3:::${self:provider.environment.S3_BUCKET}/*
 
-
 resources:
   Resources:
     GatewayResponseDefault4XX:
@@ -187,7 +182,7 @@ resources:
                 - HEAD
               MaxAge: 3000
 
-BucketPolicy:
+    BucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
         PolicyDocument:
